@@ -1,0 +1,170 @@
+// ─── Header ──────────────────────────────────────────────────────────────────
+// Utilise uniquement les variables Shadcn définies dans index.scss
+
+:root {
+  --header-height: 70px;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background-color: var(--background);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+
+  &--scrolled {
+    background-color: color-mix(in oklch, var(--background) 90%, transparent);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 4px 32px oklch(0 0 0 / 0.15);
+  }
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  // ─── Logo ──────────────────────────────────────────────────────────────
+  &__logo {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--foreground);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+
+    &-bracket {
+      color: var(--primary);
+      font-weight: 400;
+    }
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
+  // ─── Nav ───────────────────────────────────────────────────────────────
+  &__nav {
+    display: flex;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      background-color: var(--background);
+      padding: 1.5rem 2rem;
+      gap: 1.2rem;
+      border-bottom: 1px solid var(--border);
+
+      &--open {
+        display: flex;
+      }
+    }
+  }
+
+  &__link {
+    font-family: var(--font-sans);
+    color: var(--muted-foreground);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.2s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px;
+      transition: width 0.25s ease;
+    }
+
+    &:hover {
+      color: var(--foreground);
+      &::after { width: 100%; }
+    }
+
+    &--active {
+      color: var(--foreground);
+      &::after { width: 100%; }
+    }
+  }
+
+  // ─── Actions ───────────────────────────────────────────────────────────
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--foreground);
+    transition: border-color 0.2s, background-color 0.2s, transform 0.25s;
+
+    &:hover {
+      background-color: var(--accent);
+      border-color: var(--ring);
+      transform: rotate(15deg) scale(1.05);
+    }
+  }
+
+  // ─── Burger ────────────────────────────────────────────────────────────
+  &__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--foreground);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    &--open {
+      span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
+  }
+}
