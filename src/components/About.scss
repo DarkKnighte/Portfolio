@@ -1,0 +1,18 @@
+[data-slot="drawer-content"] {
+  background-color: var(--card);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 32px oklch(0 0 0 / 0.4);
+
+  [data-slot="drawer-title"] {
+    color: var(--foreground);
+  }
+
+  [data-slot="drawer-description"] {
+    color: var(--muted-foreground);
+  }
+
+  p {
+    color: var(--foreground);
+    line-height: 1.7;
+  }
+}

@@ -34,6 +34,9 @@
 
   // ─── Logo ──────────────────────────────────────────────────────────────
   &__logo {
+    display: flex;        // ← ajoute
+    align-items: center;  // ← ajoute
+    gap: 0.5rem;          // ← ajoute
     font-family: var(--font-heading);
     font-size: 1.2rem;
     font-weight: 700;
@@ -45,6 +48,12 @@
     &-bracket {
       color: var(--primary);
       font-weight: 400;
+    }
+
+    &-image {
+      width: 50px;
+      height: 60px;
+      object-fit: contain;
     }
 
     &:hover {
@@ -85,6 +94,7 @@
     text-transform: uppercase;
     position: relative;
     transition: color 0.2s;
+    cursor: pointer;
 
     &::after {
       content: '';

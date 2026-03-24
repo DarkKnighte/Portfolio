@@ -9,6 +9,7 @@ import {
 import Autoplay from "embla-carousel-autoplay"
 import kasaImg from "../assets/kasa.webp"
 import bookiImg from "../assets/booki.webp"
+import grimoireImg from "../assets/backend.webp"
 
 // ─── Données des projets ──────────────────────────────────────────────────────
 const PROJECTS = [
@@ -27,8 +28,8 @@ const PROJECTS = [
   {
     id: 3,
     title: "Projet 3",
-    image: "https://placehold.co/800x450?text=Projet+3",
-    alt: "Aperçu du projet 3",
+    image: grimoireImg,
+    alt: "Aperçu du projet 3 'Mon vieux grimoire'",
   },
 ]
 
