@@ -3,6 +3,9 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 import './Chart.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
+const HEADER = {
+  Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
+}
 
 const LANG_COLORS = {
   JavaScript:   '#f0db4f',
@@ -25,7 +28,7 @@ const LANG_COLORS = {
 
 const getColor = (lang) => LANG_COLORS[lang] || LANG_COLORS.default
 
-export function GithubLanguages() {
+export function Chart() {
   const [languages, setLanguages] = useState([])
   const [loading, setLoading]     = useState(true)
   const [error, setError]         = useState(null)
@@ -36,14 +39,15 @@ export function GithubLanguages() {
       try {
         // 1. Récupère tous les repos publics
         const reposRes = await fetch(
-          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`,
+          { headers: HEADER }
         )
         if (!reposRes.ok) throw new Error('Impossible de récupérer les repos')
         const repos = await reposRes.json()
 
         // 2. Pour chaque repo, récupère les langages
         const langPromises = repos.map((repo) =>
-          fetch(repo.languages_url).then((r) => r.json())
+          fetch(repo.languages_url, { headers: HEADER }).then((r) => r.json())
         )
         const langResults = await Promise.all(langPromises)
 
@@ -200,4 +204,4 @@ export function GithubLanguages() {
   )
 }
 
-export default GithubLanguages
+export default Chart

@@ -1,0 +1,57 @@
+// ─── Infinity Banner ──────────────────────────────────────────────────────────
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  background-color: #0a0a0a;
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  // ─── Canvas ──────────────────────────────────────────────────────────
+  &__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+  }
+
+  // ─── Contenu texte ───────────────────────────────────────────────────
+  &__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  &__subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 0 0.6rem;
+  }
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.01em;
+  }
+
+  &__tags {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+}
