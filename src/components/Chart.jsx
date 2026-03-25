@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 import './Chart.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
+const EXCLUDED_LANGS = ['Shell', 'Dockerfile'];
 const HEADER = {
   Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}`,
 }
@@ -62,8 +63,9 @@ export function Chart() {
         // 4. Transforme en tableau trié
         const totalBytes = Object.values(totals).reduce((a, b) => a + b, 0)
         const data = Object.entries(totals)
+          .filter(([name]) => !EXCLUDED_LANGS.includes(name)) // ← ajoute cette ligne
           .sort(([, a], [, b]) => b - a)
-          .slice(0, 8) // top 8 langages
+          .slice(0, 8)
           .map(([name, bytes]) => ({
             name,
             value: Math.round((bytes / totalBytes) * 100),
@@ -83,7 +85,6 @@ export function Chart() {
   }, [])
 
   const activeData = languages.find((l) => l.name === active)
-  const totalRepos = languages.length
 
   if (loading) {
     return (

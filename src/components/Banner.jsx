@@ -2,9 +2,7 @@ import { useEffect, useRef } from 'react';
 import './Banner.scss';
 
 const Banner = ({
-  title = 'DarkKnighte',
-  subtitle = 'Développeur web',
-  tags = 'React · TypeScript · Node.js',
+  texte = "Bonjour, je suis Gabriel et bienvenue sur mon portfolio !",
 }) => {
   const canvasRef = useRef(null);
 
@@ -59,7 +57,8 @@ const Banner = ({
 
         ctx.beginPath();
         ctx.arc(cx + p.x, cy + p.y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(120, 55, 200, ${alpha})`; // ← couleur des points
+        ctx.fillStyle = `rgba(0, 146, 184, ${alpha})`; // ← couleur des points
+        // ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`; // ← couleur des points
         ctx.fill();
       }
 
@@ -79,9 +78,7 @@ const Banner = ({
     <div className="banner">
       <canvas ref={canvasRef} className="banner__canvas" />
       <div className="banner__content">
-        <p className="banner__subtitle">{subtitle}</p>
-        <h1 className="banner__title">{title}</h1>
-        <p className="banner__tags">{tags}</p>
+        <h1 className="banner__texte">{texte}</h1>
       </div>
     </div>
   );
