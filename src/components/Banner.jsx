@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react';
 import './Banner.scss';
 
 const Banner = ({
-  texte = "Bonjour, je suis Gabriel et bienvenue sur mon portfolio !",
+  // texte = <> Bonjour,<br /> Je suis Gabriel et bienvenue sur mon portfolio !</>,
+    texte = <> <span className="tracking-in-contract-bck-top">Gabriel Gambotti<br />Bienvenue sur mon portfolio</span></>,
 }) => {
   const canvasRef = useRef(null);
 
@@ -58,7 +59,6 @@ const Banner = ({
         ctx.beginPath();
         ctx.arc(cx + p.x, cy + p.y, r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(0, 146, 184, ${alpha})`; // ← couleur des points
-        // ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`; // ← couleur des points
         ctx.fill();
       }
 
