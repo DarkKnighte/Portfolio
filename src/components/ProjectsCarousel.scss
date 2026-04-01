@@ -1,0 +1,196 @@
+// ─── Projects Carousel ────────────────────────────────────────────────────────
+
+.projects-carousel {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+
+  &--loading,
+  &--error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--foreground);
+    margin: 0;
+  }
+
+  &__counter {
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+  }
+
+  // ─── Screenshot ──────────────────────────────────────────────────────
+  &__screenshot {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: calc(var(--radius) * 0.8);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.2s;
+    margin-bottom: 1rem;
+
+    &:hover { border-color: var(--primary); }
+  }
+
+  &__screenshot-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--muted);
+    border-radius: calc(var(--radius) * 0.8);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s, background 0.2s;
+    color: var(--primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+
+    &:hover {
+      border-color: var(--primary);
+      background: var(--accent);
+    }
+  }
+
+  // ─── Langages interactifs ─────────────────────────────────────────────
+  &__langs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__lang {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.25rem 0.6rem;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+
+    &:hover,
+    &--active {
+      border-color: var(--primary);
+      background: var(--accent);
+    }
+  }
+
+  &__lang-name {
+    font-size: 0.75rem;
+    color: var(--foreground);
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  &__lang-pct {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+
+  // ─── Barre active ─────────────────────────────────────────────────────
+  &__bar-section {
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--foreground);
+    margin-bottom: 0.4rem;
+  }
+
+  &__bar-track {
+    width: 100%;
+    height: 6px;
+    background-color: var(--muted);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  &__bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+
+  // ─── Navigation ──────────────────────────────────────────────────────
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  &__btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: var(--foreground);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+
+    &:hover {
+      background: var(--accent);
+      border-color: var(--primary);
+    }
+  }
+
+  &__dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted-foreground);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.4;
+    transition: opacity 0.2s, background 0.2s;
+
+    &--active {
+      background: var(--primary);
+      opacity: 1;
+    }
+  }
+}

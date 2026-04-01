@@ -1,6 +1,6 @@
-// ─── GitHub Languages Chart ───────────────────────────────────────────────────
+// ─── Chart ────────────────────────────────────────────────────────────────────
 
-.github-languages {
+.chart {
   background-color: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -18,7 +18,6 @@
     font-size: 0.875rem;
   }
 
-  // ─── Header ──────────────────────────────────────────────────────────
   &__header {
     display: flex;
     align-items: flex-start;
@@ -49,10 +48,7 @@
     background: transparent;
   }
 
-  // ─── Chart ───────────────────────────────────────────────────────────
-  &__chart {
-    position: relative;
-  }
+  &__donut { position: relative; }
 
   &__center {
     position: absolute;
@@ -79,7 +75,6 @@
     margin-top: 0.2rem;
   }
 
-  // ─── Légende ─────────────────────────────────────────────────────────
   &__legend {
     display: flex;
     flex-wrap: wrap;
@@ -104,9 +99,7 @@
       font-weight: 500;
     }
 
-    &:hover {
-      color: var(--foreground);
-    }
+    &:hover { color: var(--foreground); }
   }
 
   &__legend-dot {
@@ -116,7 +109,6 @@
     flex-shrink: 0;
   }
 
-  // ─── Barre ───────────────────────────────────────────────────────────
   &__bar-section {
     border-top: 1px solid var(--border);
     padding-top: 0.75rem;
