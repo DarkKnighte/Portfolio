@@ -32,35 +32,6 @@
     justify-content: space-between;
   }
 
-  // ─── Logo ──────────────────────────────────────────────────────────────
-  &__logo {
-    display: flex;        // ← ajoute
-    align-items: center;  // ← ajoute
-    gap: 0.5rem;          // ← ajoute
-    font-family: var(--font-heading);
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--foreground);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: color 0.2s;
-
-    &-bracket {
-      color: var(--primary);
-      font-weight: 400;
-    }
-
-    &-image {
-      width: 50px;
-      height: 60px;
-      object-fit: contain;
-    }
-
-    &:hover {
-      color: var(--primary);
-    }
-  }
-
   // ─── Nav ───────────────────────────────────────────────────────────────
   &__nav {
     display: flex;
@@ -175,6 +146,33 @@
 
     @media (max-width: 768px) {
       display: flex;
+    }
+  }
+
+  // ─── Liens sociaux ────────────────────────────────────────────────────────────
+  &__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  }
+
+  &__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--header-border);
+    border-radius: var(--radius);
+    color: var(--header-text);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+
+    &:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--accent);
     }
   }
 }

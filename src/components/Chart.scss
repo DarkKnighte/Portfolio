@@ -39,6 +39,16 @@
     margin: 0;
   }
 
+  &__subtitle-link {
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color 0.2s;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
   &__badge {
     font-size: 0.75rem;
     font-weight: 500;

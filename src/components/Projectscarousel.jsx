@@ -163,7 +163,7 @@ export function ProjectsCarousel() {
               <LangIcon lang={lang.name} size={20} />
               {lang.value > 0 && (
                 <span className="projects-carousel__lang-pct" style={{ color: getColor(lang.name) }}>
-                  {lang.value}%
+                  {/* {lang.value}% */}
                 </span>
               )}
             </button>

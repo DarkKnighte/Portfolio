@@ -69,7 +69,15 @@ export function Chart() {
       <div className="chart__header">
         <div>
           <h3 className="chart__title">Langages utilisés</h3>
-          <p className="chart__subtitle">GitHub — {GITHUB_USERNAME}</p>
+          <p className="chart__subtitle">
+           <a href={`https://github.com/${GITHUB_USERNAME}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="chart__subtitle-link"
+          >
+            GitHub — {GITHUB_USERNAME}
+          </a>
+        </p>
         </div>
         {active && (
           <span className="chart__badge" style={{ borderColor: getColor(active), color: getColor(active) }}>
