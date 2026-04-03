@@ -5,6 +5,7 @@ import Header from "../components/Header.jsx";
 import ProjectsCarousel from '../components/Projectscarousel.jsx';
 import Chart from "../components/Chart.jsx";
 import Banner from '../components/Banner.jsx'
+import ContactForm from '../components/Form.jsx'
 
 const Homepage = () => {
   return (
@@ -15,6 +16,10 @@ const Homepage = () => {
           <ProjectsCarousel />
           <Chart />
         </div>
+        <div className="Footer">
+          <ContactForm />
+        </div>
+
     </>
   );
 };

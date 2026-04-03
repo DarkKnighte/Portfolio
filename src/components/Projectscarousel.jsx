@@ -5,7 +5,7 @@ import './ProjectsCarousel.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         = { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
+const HEADERS         = {}
 const ALLOWED_REPOS = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
 
 // ─── Langages manuels supplémentaires par repo ───────────────────────────────
