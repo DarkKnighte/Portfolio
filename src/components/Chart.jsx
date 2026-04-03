@@ -108,15 +108,6 @@ export function Chart() {
                 />
               ))}
             </Pie>
-            <Tooltip
-              formatter={(value) => [`${value}%`, 'Utilisation']}
-              contentStyle={{
-                background: 'var(--card)',
-                border: '1px solid var(--border)',
-                borderRadius: '8px',
-                color: 'var(--foreground)',
-              }}
-            />
           </PieChart>
         </ResponsiveContainer>
         <div className="chart__center">
