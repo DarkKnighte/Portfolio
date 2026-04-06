@@ -1,10 +1,10 @@
-// ─── Infinity Banner ──────────────────────────────────────────────────────────
+// ─── Hero Banner ──────────────────────────────────────────────────────────────
 
 .banner {
   position: relative;
   width: 100%;
-  height: 340px;
-  background-color: #0a0a0a;
+  height: 480px;
+  background-color: var(--background); // ← suit le thème sombre/clair
   border-radius: var(--radius);
   overflow: hidden;
   display: flex;
@@ -18,27 +18,100 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.6;
+    opacity: 0.55;
   }
 
-  // ─── Contenu texte ───────────────────────────────────────────────────
+  // ─── Contenu ─────────────────────────────────────────────────────────
   &__content {
     position: relative;
     z-index: 2;
     text-align: center;
     pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 
-  &__texte {
+  &__eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin: 0;
+  }
+
+  &__nom {
     font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 5vw, 3.2rem);
+    font-size: clamp(2rem, 6vw, 4rem);
     font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 0.6rem;
-    letter-spacing: -0.01em;
+    color: var(--foreground);
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  &__sous-titre {
+    font-family: var(--font-sans);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--muted-foreground);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+
+  // ─── Boutons de liens ────────────────────────────────────────────────
+  &__liens {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    pointer-events: all;
+    margin-top: 0.5rem;
+  }
+
+  &__lien {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s, transform 0.15s;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+
+    &:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    // Variante outline pour le 3ème bouton (lien interne)
+    &--outline {
+      background-color: transparent;
+      color: var(--foreground);
+      border: 1px solid var(--border);
+
+      &:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background-color: var(--accent);
+        opacity: 1;
+      }
+    }
   }
 }
 
+// ─── Animation ───────────────────────────────────────────────────────────────
 .tracking-in-contract-bck-top {
   animation: tracking-in-contract-bck-top 2s cubic-bezier(0.215, 0.61, 0.355, 1.000) both;
 }
