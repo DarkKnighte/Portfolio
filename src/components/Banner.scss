@@ -3,34 +3,57 @@
 .banner {
   position: relative;
   width: 100%;
-  height: 480px;
-  background-color: var(--background); // ← suit le thème sombre/clair
-  border-radius: var(--radius);
+  height: 100vh;
+  min-height: 500px;
+  background-color: var(--muted); // placeholder si pas de photo
+  background-size: 100% auto;
+  background-position: top 37% center;
+  background-repeat: no-repeat;
   overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: center;
+  // padding: 0;
+  // margin: 0;
+
+  // ─── Overlay ─────────────────────────────────────────────────────────
+  // Assombrit la photo pour que le texte soit lisible
+  // Augmente l'opacité si ta photo est très lumineuse
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: oklch(0 0 0 / 0.45);
+    z-index: 1;
+
+    // En mode clair, overlay légèrement différent
+    html:not(.dark) & {
+      background: oklch(0 0 0 / 0.35);
+    }
+  }
 
   // ─── Canvas ──────────────────────────────────────────────────────────
   &__canvas {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.55;
+    opacity: 0.5;
+    z-index: 2;
   }
 
-  // ─── Contenu ─────────────────────────────────────────────────────────
+  // ─── Contenu texte ───────────────────────────────────────────────────
+  // Positionné à gauche comme le screenshot
   &__content {
     position: relative;
-    z-index: 2;
-    text-align: center;
-    pointer-events: none;
+    z-index: 3;
+    padding: 0 4rem;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 1rem;
+
+    @media (max-width: 768px) {
+      padding: 0 1.5rem;
+    }
   }
 
   &__eyebrow {
@@ -39,15 +62,16 @@
     font-weight: 500;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--primary);
+    color: oklch(1 0 0 / 0.6);
     margin: 0;
   }
 
   &__nom {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 6vw, 4rem);
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
-    color: var(--foreground);
+    // Toujours blanc sur la photo peu importe le thème
+    color: oklch(1 0 0);
     margin: 0;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -55,20 +79,19 @@
 
   &__sous-titre {
     font-family: var(--font-sans);
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
-    color: var(--muted-foreground);
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    color: oklch(1 0 0 / 0.7);
     margin: 0;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
+    line-height: 1.5;
   }
 
-  // ─── Boutons de liens ────────────────────────────────────────────────
+  // ─── Boutons ─────────────────────────────────────────────────────────
   &__liens {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     flex-wrap: wrap;
-    justify-content: center;
-    pointer-events: all;
     margin-top: 0.5rem;
   }
 
@@ -84,7 +107,7 @@
     letter-spacing: 0.04em;
     transition: opacity 0.2s, transform 0.15s;
     background-color: var(--primary);
-    color: var(--primary-foreground);
+    color: #fff;
 
     &:hover {
       opacity: 0.85;
@@ -95,16 +118,14 @@
       transform: translateY(0);
     }
 
-    // Variante outline pour le 3ème bouton (lien interne)
     &--outline {
       background-color: transparent;
-      color: var(--foreground);
-      border: 1px solid var(--border);
+      color: #fff;
+      border: 1px solid oklch(1 0 0 / 0.4);
 
       &:hover {
-        border-color: var(--primary);
-        color: var(--primary);
-        background-color: var(--accent);
+        border-color: oklch(1 0 0 / 0.8);
+        background-color: oklch(1 0 0 / 0.1);
         opacity: 1;
       }
     }

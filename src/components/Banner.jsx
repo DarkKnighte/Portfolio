@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
 import './Banner.scss';
+import photoBg from '../assets/moi.jpg'
+import louvre from '../assets/moi_louvre.png'
 
 const Banner = ({
   nom       = 'Gabriel Gambotti',
   sousTitre = 'Développeur web React',
   liens     = [
     { label: 'GitHub',   href: 'https://github.com/DarkKnighte' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/gabriel-gambotti-410a702b6/' },
-    { label: 'Contact',  href: '/contact' },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/ton-profil' },
   ],
 }) => {
   const canvasRef = useRef(null);
@@ -31,8 +32,8 @@ const Banner = ({
     const H = () => canvas.offsetHeight;
 
     const infinityPoint = (t, tilt) => {
-      const scaleX = Math.min(W(), H()) * 1; // ← largeur du symbole
-      const scaleY = Math.min(W(), H()) * 0.80; // ← hauteur du symbole
+      const scaleX = Math.min(W(), H()) * 1;
+      const scaleY = Math.min(W(), H()) * 0.80;
       const denom  = 1 + Math.sin(t) * Math.sin(t);
       const x      = (scaleX * Math.cos(t)) / denom;
       const y      = (scaleY * Math.sin(t) * Math.cos(t)) / denom;
@@ -80,9 +81,17 @@ const Banner = ({
   }, []);
 
   return (
-    <div className="banner">
+    <div
+      className="banner"
+      style={photoBg ? { backgroundImage: `url(${louvre})` } : {}}
+    >
+      {/* Overlay sombre pour lisibilité du texte sur la photo */}
+      <div className="banner__overlay" />
+
+      {/* Canvas infini */}
       <canvas ref={canvasRef} className="banner__canvas" />
 
+      {/* Contenu texte — positionné à gauche */}
       <div className="banner__content">
         <p className="banner__eyebrow">Portfolio</p>
 
