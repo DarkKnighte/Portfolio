@@ -17,10 +17,10 @@ export function About({ open, onOpenChange }) {
           <DrawerDescription>Qui suis-je ?</DrawerDescription>
         </DrawerHeader>
         <div className="no-scrollbar overflow-y-auto px-4">
-          <p>Ton texte de présentation ici...</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eaque nobis dolores laborum facere magnam. Impedit, iste voluptate aspernatur tenetur odio cupiditate. Rem tempore quasi totam nisi reprehenderit. Ipsam, fugit.</p>
         </div>
         <DrawerClose asChild>
-          <Button variant="outline" className="m-4">Fermer</Button>
+          <Button variant="outline" className="m-4" style={{ border: '1px solid black' }}>Fermer</Button>
         </DrawerClose>
       </DrawerContent>
     </Drawer>

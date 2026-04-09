@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import './Header.scss';
 import About from './About.jsx';
-import badmanImg from '../assets/badman.png';
 
 const NAV_LINKS = [
   { to: '/', label: 'Accueil' },
-  { to: '/projets', label: 'Projets' },
-  { to: '/contact', label: 'Contact' },
+  { to: '/#projets', label: 'Projets' },
+  { to: '/#contact', label: 'Contact' },
 ];
 
 const Header = () => {

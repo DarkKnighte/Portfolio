@@ -12,11 +12,11 @@ const Homepage = () => {
     <>
       <Header />
         <Banner />
-        <div className="container">
+        <div id="projets" className="container">
           <ProjectsCarousel />
           <Chart />
         </div>
-        <div className="Footer">
+        <div id="contact" className="Footer">
           <ContactForm />
         </div>
 
