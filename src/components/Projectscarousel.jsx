@@ -11,6 +11,7 @@ const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
 // ─── Langages manuels supplémentaires par repo ───────────────────────────────
 const EXTRA_LANGS = {
   // 'nom-du-repo': ['React', 'Redux', 'NodeJS'],
+  'Kasa': ['React', 'Vue', 'NodeJS'],
 }
 
 // ─── Images par repo ─────────────────────────────────────────────────────────
