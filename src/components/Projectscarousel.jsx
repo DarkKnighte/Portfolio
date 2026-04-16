@@ -1,16 +1,18 @@
 import { useEffect, useState, useRef } from 'react'
 import { LangIcon, getColor } from './Langicons.jsx'
 import kasaMain from '../assets/kasa/kasa_main.webp'
-import kasaAbout from '../assets/kasa/kasa_about.png'
-import kasaAppart from '../assets/kasa/kasa_appart.png'
+import kasaAbout from '../assets/kasa/kasa_about.webp'
+import kasaAppart from '../assets/kasa/kasa_appart.webp'
 import booki from '../assets/booki/booki.webp'
-import booki2 from '../assets/booki/booki2.png'
+import booki2 from '../assets/booki/booki2.webp'
+import grimoireMain from '../assets/grimoire/backend.webp'
+import grimoireCreate from '../assets/grimoire/grimoire_creation.webp'
 import Modal from './Modal.jsx'
 import './ProjectsCarousel.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         =  {}
+const HEADERS         = { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` }
 const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
 
 // ─── Langages manuels supplémentaires par repo ───────────────────────────────
@@ -24,7 +26,7 @@ const PROJECT_IMAGES = {
   // 'nom-du-repo': '/src/assets/mon-image.png',
   'projet-Booki': [booki, booki2],
   'Kasa':         [kasaMain, kasaAbout, kasaAppart],
-  'Mon-Vieux-Grimoire': '../assets/grimoire/backend.webp',
+  'Mon-Vieux-Grimoire': [grimoireMain, grimoireCreate],
 }
 
 // ─── Contexte manuel par repo ─────────────────────────────────────────────────
