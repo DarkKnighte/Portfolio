@@ -4,7 +4,6 @@ import './App.scss';
 //import './temp.scss';
 import Homepage from './pages/Homepage.jsx';
 import Header from './components/Header.jsx';
-import { CarouselPlugin } from "./components/CarouselPlugin.jsx";
 
 const App = () => {
   return (

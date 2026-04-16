@@ -1,11 +1,16 @@
 import { useEffect, useState, useRef } from 'react'
 import { LangIcon, getColor } from './Langicons.jsx'
+import kasaMain from '../assets/kasa/kasa_main.webp'
+import kasaAbout from '../assets/kasa/kasa_about.png'
+import kasaAppart from '../assets/kasa/kasa_appart.png'
+import booki from '../assets/booki/booki.webp'
+import booki2 from '../assets/booki/booki2.png'
 import Modal from './Modal.jsx'
 import './ProjectsCarousel.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         = { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` }
+const HEADERS         =  {}
 const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
 
 // ─── Langages manuels supplémentaires par repo ───────────────────────────────
@@ -17,9 +22,9 @@ const EXTRA_LANGS = {
 // ─── Images par repo ─────────────────────────────────────────────────────────
 const PROJECT_IMAGES = {
   // 'nom-du-repo': '/src/assets/mon-image.png',
-  'projet-Booki': '/src/assets/booki.webp',
-  'Kasa':         '/src/assets/kasa.webp',
-  'Mon-Vieux-Grimoire': '/src/assets/backend.webp',
+  'projet-Booki': [booki, booki2],
+  'Kasa':         [kasaMain, kasaAbout, kasaAppart],
+  'Mon-Vieux-Grimoire': '../assets/grimoire/backend.webp',
 }
 
 // ─── Contexte manuel par repo ─────────────────────────────────────────────────
@@ -141,6 +146,7 @@ export function ProjectsCarousel() {
             src={image}
             alt={repo.name}
             className="projects-carousel__screenshot"
+            loading="lazy"
             onClick={() => setSelected(projects[current])}
           />
         ) : (

@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import './Banner.scss';
-import photoBg from '../assets/moi.jpg'
 import louvre from '../assets/moi_louvre.png'
 
 const Banner = ({
@@ -8,14 +7,14 @@ const Banner = ({
   sousTitre = 'Développeur web React',
   liens     = [
     { label: 'GitHub',   href: 'https://github.com/DarkKnighte' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/ton-profil' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/gabriel-gambotti-410a702b6' },
   ],
 }) => {
 
   return (
     <div
       className="banner"
-      style={photoBg ? { backgroundImage: `url(${louvre})` } : {}}
+      style={louvre ? { backgroundImage: `url(${louvre})` } : {}}
     >
       {/* Overlay sombre pour lisibilité du texte sur la photo */}
       <div className="banner__overlay" />
