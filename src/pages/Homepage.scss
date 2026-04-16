@@ -3,11 +3,15 @@
   flex-direction: row-reverse;
   justify-content: center;
   gap: 2em;
-  padding-top: var(--header-height); // 70px défini dans Header.scss
-  padding: 2rem;
+  padding: var(--header-height); // 70px défini dans Header.scss
+  place-self: center;
 }
 
-.footer {
+.Footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: auto;
   text-align: center;
   padding: 2rem;
   font-size: 0.9rem;
