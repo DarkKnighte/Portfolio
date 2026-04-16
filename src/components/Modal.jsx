@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { LangIcon, getColor } from './Langicons.jsx'
 import './Modal.scss'
 
-export function Modal({ repo, langs, image, context, onClose }) {
-
-  const [activeLang, setActiveLang] = useState(null)
+export function Modal({ repo, langs, images = [], context, onClose }) {
+  const [activeLang, setActiveLang]   = useState(null)
+  const [currentImg, setCurrentImg]   = useState(0)
 
   useEffect(() => {
     const apiLangs = langs.filter((l) => l.source === 'api' && l.value > 0)
@@ -13,44 +13,47 @@ export function Modal({ repo, langs, image, context, onClose }) {
   }, [langs])
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowRight') setCurrentImg((i) => (i + 1) % images.length)
+      if (e.key === 'ArrowLeft')  setCurrentImg((i) => (i - 1 + images.length) % images.length)
+    }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
+  }, [onClose, images.length])
 
   const apiLangs    = langs.filter((l) => l.source === 'api' && l.value > 0)
   const manualLangs = langs.filter((l) => l.source === 'manual')
   const activeData  = apiLangs.find((l) => l.name === activeLang)
 
   return (
-    <div className="project-modal__overlay" onClick={onClose}>
-      <div className="project-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="modal__overlay" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
 
         {/* Header */}
-        <div className="project-modal__header">
-          <h2 className="project-modal__title">{repo.name}</h2>
-          <div className="project-modal__header-actions">
+        <div className="modal__header">
+          <h2 className="modal__title">{repo.name}</h2>
+          <div className="modal__header-actions">
             <a
               href={repo.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="project-modal__github-link"
+              className="modal__github-link"
             >
               GitHub →
             </a>
-            <button className="project-modal__close" onClick={onClose}>✕</button>
+            <button className="modal__close" onClick={onClose}>✕</button>
           </div>
         </div>
 
-        {/* Body — 2 colonnes */}
-        <div className="project-modal__body">
+        {/* Body 2 colonnes */}
+        <div className="modal__body">
 
-          {/* ── Colonne gauche : donut + langages ── */}
-          <div className="project-modal__left">
+          {/* ── Gauche : donut + langages ── */}
+          <div className="modal__left">
 
-            {/* Donut interactif */}
             {apiLangs.length > 0 && (
-              <div className="project-modal__donut">
+              <div className="modal__donut">
                 <ResponsiveContainer width="100%" height={180}>
                   <PieChart>
                     <Pie
@@ -74,31 +77,26 @@ export function Modal({ repo, langs, image, context, onClose }) {
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
-
-                {/* Centre */}
-                <div className="project-modal__donut-center">
-                  <span className="project-modal__donut-value">
-                    {activeData ? `${activeData.value}%` : ''}
-                  </span>
-                  <span className="project-modal__donut-label">{activeLang}</span>
+                <div className="modal__donut-center">
+                  <span className="modal__donut-value">{activeData ? `${activeData.value}%` : ''}</span>
+                  <span className="modal__donut-label">{activeLang}</span>
                 </div>
               </div>
             )}
 
-            {/* Langages détectés (API) */}
             {apiLangs.length > 0 && (
-              <div className="project-modal__langs">
-                <p className="project-modal__section-label">Langages détectés</p>
+              <div className="modal__langs">
+                <p className="modal__section-label">Langages détectés</p>
                 {apiLangs.map((lang) => (
                   <button
                     key={lang.name}
-                    className={`project-modal__lang-item ${activeLang === lang.name ? 'project-modal__lang-item--active' : ''}`}
+                    className={`modal__lang-item ${activeLang === lang.name ? 'modal__lang-item--active' : ''}`}
                     onMouseEnter={() => setActiveLang(lang.name)}
                     onClick={() => setActiveLang(lang.name)}
                   >
                     <LangIcon lang={lang.name} size={24} />
-                    <span className="project-modal__lang-name">{lang.name}</span>
-                    <span className="project-modal__lang-pct" style={{ color: getColor(lang.name) }}>
+                    <span className="modal__lang-name">{lang.name}</span>
+                    <span className="modal__lang-pct" style={{ color: getColor(lang.name) }}>
                       {lang.value}%
                     </span>
                   </button>
@@ -106,14 +104,13 @@ export function Modal({ repo, langs, image, context, onClose }) {
               </div>
             )}
 
-            {/* Langages manuels (ex: React) */}
             {manualLangs.length > 0 && (
-              <div className="project-modal__langs">
-                <p className="project-modal__section-label">Technologies</p>
+              <div className="modal__langs">
+                <p className="modal__section-label">Technologies</p>
                 {manualLangs.map((lang) => (
-                  <div key={lang.name} className="project-modal__lang-item">
+                  <div key={lang.name} className="modal__lang-item">
                     <LangIcon lang={lang.name} size={24} />
-                    <span className="project-modal__lang-name">{lang.name}</span>
+                    <span className="modal__lang-name">{lang.name}</span>
                   </div>
                 ))}
               </div>
@@ -121,40 +118,62 @@ export function Modal({ repo, langs, image, context, onClose }) {
 
           </div>
 
-          {/* ── Colonne droite : screenshot + descriptions ── */}
-          <div className="project-modal__right">
+          {/* ── Droite : carousel images + descriptions ── */}
+          <div className="modal__right">
 
-            {/* Screenshot */}
-            {image ? (
-              <img src={image} alt={repo.name} className="project-modal__image" />
+            {/* Carousel d'images */}
+            {images.length > 0 ? (
+              <div className="modal__img-carousel">
+                <img
+                  src={images[currentImg]}
+                  alt={`${repo.name} ${currentImg + 1}`}
+                  className="modal__image"
+                />
+
+                {/* Navigation si plusieurs images */}
+                {images.length > 1 && (
+                  <div className="modal__img-nav">
+                    <button
+                      className="modal__img-btn"
+                      onClick={() => setCurrentImg((i) => (i - 1 + images.length) % images.length)}
+                    >←</button>
+
+                    <div className="modal__img-dots">
+                      {images.map((_, i) => (
+                        <button
+                          key={i}
+                          className={`modal__img-dot ${i === currentImg ? 'modal__img-dot--active' : ''}`}
+                          onClick={() => setCurrentImg(i)}
+                        />
+                      ))}
+                    </div>
+
+                    <button
+                      className="modal__img-btn"
+                      onClick={() => setCurrentImg((i) => (i + 1) % images.length)}
+                    >→</button>
+                  </div>
+                )}
+              </div>
             ) : (
-              <div className="project-modal__image-placeholder">
+              <div className="modal__image-placeholder">
                 <span>Pas d'image disponible</span>
               </div>
             )}
 
-            {/* Description GitHub — automatique */}
+            {/* Description GitHub */}
             {repo.description && (
-              <div className="project-modal__desc-block">
-                <p className="project-modal__section-label">Description</p>
-                {/*
-                  Cette description vient directement de GitHub (repo.description).
-                  Pour la modifier, change la description de ton repo sur GitHub.
-                */}
-                <p className="project-modal__description">{repo.description}</p>
+              <div className="modal__desc-block">
+                <p className="modal__section-label">Description</p>
+                <p className="modal__description">{repo.description}</p>
               </div>
             )}
 
-            {/* Contexte manuel — à modifier dans PROJECT_CONTEXT dans ProjectsCarousel.jsx */}
+            {/* Contexte manuel */}
             {context && (
-              <div className="project-modal__desc-block">
-                <p className="project-modal__section-label">Contexte</p>
-                {/*
-                  Ce texte est défini manuellement dans ProjectsCarousel.jsx
-                  dans la constante PROJECT_CONTEXT['nom-du-repo'].
-                  Exemples : "Projet de formation", "Projet personnel", etc.
-                */}
-                <p className="project-modal__description">{context}</p>
+              <div className="modal__desc-block">
+                <p className="modal__section-label">Contexte</p>
+                <p className="modal__description">{context}</p>
               </div>
             )}
 

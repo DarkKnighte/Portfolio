@@ -1,24 +1,19 @@
+// ─── Base ────────────────────────────────────────────────────────────────────
+
 body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
 }
 
-a {
-  text-decoration: none;
-}
+a { text-decoration: none; }
+p, h1, h2, h3, h4 { margin: 0; padding: 0; }
 
-p {
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  margin: 0;
-  padding: 0;
-}
-
-h3 {
-  margin: 0;
-  padding: 0;
+// ─── Scrollbar custom ────────────────────────────────────────────────────────
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  &:hover { background: var(--muted-foreground); }
 }

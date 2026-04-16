@@ -1,5 +1,20 @@
 import { useEffect, useState, useRef } from 'react'
 import { LangIcon, getColor } from './Langicons.jsx'
+import { fetchWithCache } from '../lib/githubCache.js'
+import Modal from './Modal.jsx'
+import './ProjectsCarousel.scss'
+
+const GITHUB_USERNAME = 'DarkKnighte'
+const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
+const HEADERS         = { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
+const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
+
+const EXTRA_LANGS = {
+  'Kasa': ['React', 'Vue', 'NodeJS'],
+}
+
+// Tableau d'images par repo — première image affichée dans le carousel
+// Les suivantes s'affichent dans la modal
 import kasaMain from '../assets/kasa/kasa_main.webp'
 import kasaAbout from '../assets/kasa/kasa_about.webp'
 import kasaAppart from '../assets/kasa/kasa_appart.webp'
@@ -7,35 +22,16 @@ import booki from '../assets/booki/booki.webp'
 import booki2 from '../assets/booki/booki2.webp'
 import grimoireMain from '../assets/grimoire/backend.webp'
 import grimoireCreate from '../assets/grimoire/grimoire_creation.webp'
-import Modal from './Modal.jsx'
-import './ProjectsCarousel.scss'
 
-const GITHUB_USERNAME = 'DarkKnighte'
-const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         = { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` }
-const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
-
-// ─── Langages manuels supplémentaires par repo ───────────────────────────────
-const EXTRA_LANGS = {
-  // 'nom-du-repo': ['React', 'Redux', 'NodeJS'],
-  'Kasa': ['React', 'Vue', 'NodeJS'],
-}
-
-// ─── Images par repo ─────────────────────────────────────────────────────────
 const PROJECT_IMAGES = {
-  // 'nom-du-repo': '/src/assets/mon-image.png',
-  'projet-Booki': [booki, booki2],
-  'Kasa':         [kasaMain, kasaAbout, kasaAppart],
+  'projet-Booki':       [booki, booki2],
+  'Kasa':               [kasaMain, kasaAbout, kasaAppart],
   'Mon-Vieux-Grimoire': [grimoireMain, grimoireCreate],
 }
 
-// ─── Contexte manuel par repo ─────────────────────────────────────────────────
-// Ce texte s'affiche dans la modal en plus de la description GitHub
-// Utilise ce champ pour décrire le contexte du projet (formation, perso, pro...)
 const PROJECT_CONTEXT = {
-  // 'nom-du-repo': 'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
-  'projet-Booki': 'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
-  'Kasa':         'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
+  'projet-Booki':       'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
+  'Kasa':               'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
   'Mon-Vieux-Grimoire': 'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
 }
 
@@ -51,18 +47,15 @@ export function ProjectsCarousel() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const reposRes = await fetch(
+        const repos = await fetchWithCache(
           `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`,
           { headers: HEADERS }
         )
-        if (!reposRes.ok) throw new Error('Impossible de récupérer les repos')
-        const repos = await reposRes.json()
         const filteredRepos = repos.filter((repo) => ALLOWED_REPOS.includes(repo.name))
 
-        const langPromises = filteredRepos.map((repo) =>
-          fetch(repo.languages_url, { headers: HEADERS }).then((r) => r.json())
+        const langResults = await Promise.all(
+          filteredRepos.map((repo) => fetchWithCache(repo.languages_url, { headers: HEADERS }))
         )
-        const langResults = await Promise.all(langPromises)
 
         const data = filteredRepos.map((repo, i) => {
           const apiLangs   = langResults[i]
@@ -86,8 +79,8 @@ export function ProjectsCarousel() {
           return {
             repo,
             langs:   [...apiLangData, ...extraLangs],
-            image:   PROJECT_IMAGES[repo.name]   || null,
-            context: PROJECT_CONTEXT[repo.name]  || null,
+            images:  PROJECT_IMAGES[repo.name]  || [],
+            context: PROJECT_CONTEXT[repo.name] || null,
           }
         })
 
@@ -129,26 +122,24 @@ export function ProjectsCarousel() {
   if (error)   return <div className="projects-carousel projects-carousel--error"><p>Erreur : {error}</p></div>
   if (projects.length === 0) return null
 
-  const { repo, langs, image, context } = projects[current]
-  const activeData = langs.find((l) => l.name === activeLang)
+  const { repo, langs, images, context } = projects[current]
+  const displayImage = images[0] || null // ← première image uniquement dans le carousel
 
   return (
     <>
       <div className="projects-carousel">
 
-        {/* Header */}
         <div className="projects-carousel__header">
           <h3 className="projects-carousel__title">{repo.name}</h3>
           <span className="projects-carousel__counter">{current + 1} / {projects.length}</span>
         </div>
 
-        {/* Screenshot */}
-        {image ? (
+        {/* Première image uniquement */}
+        {displayImage ? (
           <img
-            src={image}
+            src={displayImage}
             alt={repo.name}
             className="projects-carousel__screenshot"
-            loading="lazy"
             onClick={() => setSelected(projects[current])}
           />
         ) : (
@@ -160,7 +151,7 @@ export function ProjectsCarousel() {
           </div>
         )}
 
-        {/* Logos langages — interactifs comme Chart.jsx */}
+        {/* Logos langages */}
         <div className="projects-carousel__langs">
           {langs.map((lang) => (
             <button
@@ -172,14 +163,13 @@ export function ProjectsCarousel() {
               <LangIcon lang={lang.name} size={20} />
               {lang.value > 0 && (
                 <span className="projects-carousel__lang-pct" style={{ color: getColor(lang.name) }}>
-                  {/* {lang.value}% */}
+                  {lang.value}%
                 </span>
               )}
             </button>
           ))}
         </div>
 
-        {/* Navigation */}
         <div className="projects-carousel__nav">
           <button className="projects-carousel__btn" onClick={prev}>←</button>
           <div className="projects-carousel__dots">
@@ -200,7 +190,7 @@ export function ProjectsCarousel() {
         <Modal
           repo={selectedProject.repo}
           langs={selectedProject.langs}
-          image={selectedProject.image}
+          images={selectedProject.images}
           context={selectedProject.context}
           onClose={() => setSelected(null)}
         />

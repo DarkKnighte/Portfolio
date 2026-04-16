@@ -5,32 +5,25 @@
   width: 100%;
   height: 100vh;
   min-height: 500px;
-  background-color: var(--muted); // placeholder si pas de photo
+  background-color: var(--muted);
   background-size: 100% auto;
   background-position: top 37% center;
   background-repeat: no-repeat;
   overflow: hidden;
   display: flex;
   align-items: center;
-  // padding: 0;
-  // margin: 0;
 
-  // ─── Overlay ─────────────────────────────────────────────────────────
-  // Assombrit la photo pour que le texte soit lisible
-  // Augmente l'opacité si ta photo est très lumineuse
   &__overlay {
     position: absolute;
     inset: 0;
     background: oklch(0 0 0 / 0.45);
     z-index: 1;
 
-    // En mode clair, overlay légèrement différent
     html:not(.dark) & {
       background: oklch(0 0 0 / 0.35);
     }
   }
 
-  // ─── Canvas ──────────────────────────────────────────────────────────
   &__canvas {
     position: absolute;
     inset: 0;
@@ -40,8 +33,6 @@
     z-index: 2;
   }
 
-  // ─── Contenu texte ───────────────────────────────────────────────────
-  // Positionné à gauche comme le screenshot
   &__content {
     position: relative;
     z-index: 3;
@@ -51,8 +42,28 @@
     flex-direction: column;
     gap: 1rem;
 
+    // ─── Desktop (1025px → 1200px) ───────────────────────────────────
+    @media (max-width: 1200px) {
+      margin: 0 auto 10rem 45rem;
+    }
+
+    // ─── Laptop (769px → 1024px) ─────────────────────────────────────
+    @media (max-width: 1024px) {
+      margin: 0 auto 8rem 30rem;
+      padding: 0 2rem;
+    }
+
+    // ─── Tablet (481px → 768px) ──────────────────────────────────────
     @media (max-width: 768px) {
-      padding: 0 1.5rem;
+      margin: 0;
+      padding: 0 2rem;
+      align-items: flex-start;
+    }
+
+    // ─── Mobile (max 480px) ──────────────────────────────────────────
+    @media (max-width: 480px) {
+      padding: 0 1.25rem;
+      gap: 0.75rem;
     }
   }
 
@@ -68,9 +79,8 @@
 
   &__nom {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
     font-weight: 700;
-    // Toujours blanc sur la photo peu importe le thème
     color: oklch(1 0 0);
     margin: 0;
     letter-spacing: -0.02em;
@@ -79,20 +89,23 @@
 
   &__sous-titre {
     font-family: var(--font-sans);
-    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    font-size: clamp(0.85rem, 1.5vw, 1.05rem);
     color: oklch(1 0 0 / 0.7);
     margin: 0;
     letter-spacing: 0.02em;
     line-height: 1.5;
   }
 
-  // ─── Boutons ─────────────────────────────────────────────────────────
   &__liens {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     flex-wrap: wrap;
     margin-top: 0.5rem;
+
+    @media (max-width: 480px) {
+      gap: 0.5rem;
+    }
   }
 
   &__lien {
@@ -109,14 +122,17 @@
     background-color: var(--primary);
     color: #fff;
 
+    @media (max-width: 480px) {
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+    }
+
     &:hover {
       opacity: 0.85;
       transform: translateY(-2px);
     }
 
-    &:active {
-      transform: translateY(0);
-    }
+    &:active { transform: translateY(0); }
 
     &--outline {
       background-color: transparent;
@@ -132,7 +148,6 @@
   }
 }
 
-// ─── Animation ───────────────────────────────────────────────────────────────
 .tracking-in-contract-bck-top {
   animation: tracking-in-contract-bck-top 2s cubic-bezier(0.215, 0.61, 0.355, 1.000) both;
 }
@@ -143,9 +158,7 @@
     transform: translateZ(400px) translateY(-300px);
     opacity: 0;
   }
-  40% {
-    opacity: 0.6;
-  }
+  40% { opacity: 0.6; }
   100% {
     transform: translateZ(0) translateY(0);
     opacity: 1;

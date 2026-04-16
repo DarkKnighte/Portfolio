@@ -1,4 +1,4 @@
-// ─── Contact Form ─────────────────────────────────────────────────────────────
+// ─── Contact Form ────────────────────────────────────────────────────────────
 
 .contact-form {
   background-color: var(--card);
@@ -11,7 +11,16 @@
   flex-direction: column;
   gap: 1.25rem;
 
-  // ─── Champs ──────────────────────────────────────────────────────────
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+
   input[type="text"],
   input[type="email"],
   textarea {
@@ -27,13 +36,16 @@
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
 
-    &::placeholder {
-      color: var(--muted-foreground);
-    }
+    &::placeholder { color: var(--muted-foreground); }
 
     &:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px color-mix(in oklch, var(--primary) 20%, transparent);
+    }
+
+    @media (max-width: 480px) {
+      padding: 0.65rem 0.875rem;
+      font-size: 0.85rem;
     }
   }
 
@@ -41,9 +53,12 @@
     min-height: 140px;
     resize: vertical;
     line-height: 1.6;
+
+    @media (max-width: 480px) {
+      min-height: 110px;
+    }
   }
 
-  // ─── Bouton ──────────────────────────────────────────────────────────
   button[type="submit"] {
     width: 100%;
     padding: 0.75rem 1.5rem;
@@ -58,16 +73,10 @@
     cursor: pointer;
     transition: opacity 0.2s, transform 0.15s;
 
-    &:hover {
-      opacity: 0.9;
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
+    &:hover { opacity: 0.9; }
+    &:active { transform: scale(0.98); }
   }
 
-  // ─── Message résultat ────────────────────────────────────────────────
   p {
     font-size: 0.8rem;
     text-align: center;
