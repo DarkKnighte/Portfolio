@@ -17,7 +17,7 @@ export function About({ open, onOpenChange }) {
           <DrawerDescription>Qui suis-je ?</DrawerDescription>
         </DrawerHeader>
         <div className="no-scrollbar overflow-y-auto px-4">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eaque nobis dolores laborum facere magnam. Impedit, iste voluptate aspernatur tenetur odio cupiditate. Rem tempore quasi totam nisi reprehenderit. Ipsam, fugit.</p>
+          <p>Bonjour, je fais un test pour vérifier que tout fonctionne correctement avec Vercel.</p>
         </div>
         <DrawerClose asChild>
           <Button variant="outline" className="m-4" style={{ border: '1px solid black' }}>Fermer</Button>
