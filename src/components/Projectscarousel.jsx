@@ -6,7 +6,7 @@ import './ProjectsCarousel.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         = { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
+const HEADERS         = { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` }
 const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
 
 const EXTRA_LANGS = {
