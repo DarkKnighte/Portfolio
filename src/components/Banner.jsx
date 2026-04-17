@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './Banner.scss';
-import louvre from '../assets/moi_louvre.png'
+import louvre from '../assets/moi_louvre.webp'
 
 const Banner = ({
   nom       = 'Gabriel Gambotti',
