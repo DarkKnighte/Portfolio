@@ -6,7 +6,6 @@ import { fetchWithCache } from '../lib/githubCache.js'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-fetchWithCache(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`)
 
 export function Chart() {
   const [languages, setLanguages] = useState([])
@@ -17,16 +16,13 @@ export function Chart() {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const reposRes = await fetchWithCache(
+        const repos = await fetchWithCache(
           `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`
         )
-        if (!reposRes.ok) throw new Error('Impossible de récupérer les repos')
-        const repos = await reposRes.json()
 
-        const langPromises = repos.map((repo) =>
-          fetchWithCache(repo.languages_url).then((r) => r.json())
+        const langResults = await Promise.all(
+          repos.map((repo) => fetchWithCache(repo.languages_url))
         )
-        const langResults = await Promise.all(langPromises)
 
         const totals = {}
         langResults.forEach((langs) => {

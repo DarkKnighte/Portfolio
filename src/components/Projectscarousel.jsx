@@ -153,18 +153,16 @@ export function ProjectsCarousel() {
         {/* Logos langages */}
         <div className="projects-carousel__langs">
           {langs.map((lang) => (
-            <button
+            <div
               key={lang.name}
               className={`projects-carousel__lang ${activeLang === lang.name ? 'projects-carousel__lang--active' : ''}`}
-              onMouseEnter={() => setActiveLang(lang.name)}
-              onClick={() => setActiveLang(lang.name)}
             >
               <LangIcon lang={lang.name} size={20} />
               {lang.value > 0 && (
                 <span className="projects-carousel__lang-pct" style={{ color: getColor(lang.name) }}>
                 </span>
               )}
-            </button>
+            </div>
           ))}
         </div>
 
@@ -172,7 +170,7 @@ export function ProjectsCarousel() {
           <button className="projects-carousel__btn" onClick={prev}>←</button>
           <div className="projects-carousel__dots">
             {projects.map((_, i) => (
-              <button
+              <div
                 key={i}
                 className={`projects-carousel__dot ${i === current ? 'projects-carousel__dot--active' : ''}`}
                 onClick={() => goTo(i)}

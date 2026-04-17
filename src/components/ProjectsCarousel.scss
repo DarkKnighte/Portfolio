@@ -97,16 +97,11 @@
     gap: 5px;
     padding: 0.25rem 0.6rem;
     background: none;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-
-    &:hover,
-    &--active {
-      border-color: var(--primary);
-      background: var(--accent);
-    }
+    border: none;
+    border-radius: 0;
+    cursor: default;
+    font-size: 0.875rem;
+    color: var(--foreground);
   }
 
   &__lang-pct {

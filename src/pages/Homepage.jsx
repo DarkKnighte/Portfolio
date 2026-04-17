@@ -13,10 +13,12 @@ const Homepage = () => {
       <Header />
         <Banner />
         <div id="projets" className="container">
+          <h1 className="container-title">Projets</h1>
           <ProjectsCarousel />
           <Chart />
         </div>
-        <div id="contact" className="Footer">
+        <div id="contact" className="footer">
+          <h1 className="footer-title">Contact</h1>
           <ContactForm />
         </div>
 
