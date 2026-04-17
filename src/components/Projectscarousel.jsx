@@ -6,8 +6,8 @@ import './ProjectsCarousel.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         = { }
 const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
+fetchWithCache(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`)
 
 const EXTRA_LANGS = {
   'Kasa': ['React', 'Vue', 'NodeJS'],
@@ -48,13 +48,12 @@ export function ProjectsCarousel() {
     const fetchProjects = async () => {
       try {
         const repos = await fetchWithCache(
-          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`,
-          { headers: HEADERS }
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`
         )
         const filteredRepos = repos.filter((repo) => ALLOWED_REPOS.includes(repo.name))
 
         const langResults = await Promise.all(
-          filteredRepos.map((repo) => fetchWithCache(repo.languages_url, { headers: HEADERS }))
+          filteredRepos.map((repo) => fetchWithCache(repo.languages_url))
         )
 
         const data = filteredRepos.map((repo, i) => {

@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 import { getColor } from './Langicons.jsx'
 import './Chart.scss'
+import { fetchWithCache } from '../lib/githubCache.js'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         = { }
+fetchWithCache(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`)
 
 export function Chart() {
   const [languages, setLanguages] = useState([])
@@ -16,15 +17,14 @@ export function Chart() {
   useEffect(() => {
     const fetchLanguages = async () => {
       try {
-        const reposRes = await fetch(
-          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`,
-          { headers: HEADERS }
+        const reposRes = await fetchWithCache(
+          `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`
         )
         if (!reposRes.ok) throw new Error('Impossible de récupérer les repos')
         const repos = await reposRes.json()
 
         const langPromises = repos.map((repo) =>
-          fetch(repo.languages_url, { headers: HEADERS }).then((r) => r.json())
+          fetchWithCache(repo.languages_url).then((r) => r.json())
         )
         const langResults = await Promise.all(langPromises)
 
