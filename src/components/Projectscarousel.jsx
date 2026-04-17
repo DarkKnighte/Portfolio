@@ -6,7 +6,7 @@ import './ProjectsCarousel.scss'
 
 const GITHUB_USERNAME = 'DarkKnighte'
 const EXCLUDED_LANGS  = ['Shell', 'Dockerfile', 'HCL', 'Makefile', 'Batchfile', 'PowerShell']
-const HEADERS         = { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` }
+const HEADERS         = { }
 const ALLOWED_REPOS   = ['projet-Booki', 'Kasa', 'Mon-Vieux-Grimoire']
 
 const EXTRA_LANGS = {
@@ -163,7 +163,6 @@ export function ProjectsCarousel() {
               <LangIcon lang={lang.name} size={20} />
               {lang.value > 0 && (
                 <span className="projects-carousel__lang-pct" style={{ color: getColor(lang.name) }}>
-                  {lang.value}%
                 </span>
               )}
             </button>
