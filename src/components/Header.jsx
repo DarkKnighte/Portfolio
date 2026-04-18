@@ -56,19 +56,20 @@ const Header = () => {
   }, [])
 
   // ─── Scroll vers section ─────────────────────────────────────────────
-  const scrollTo = (to) => {
-    setMenuOpen(false)
-    if (to === 'top') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      setActiveSection('top')
-      return
-    }
-    const el = document.getElementById(to)
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 70
-      window.scrollTo({ top, behavior: 'smooth' })
-    }
+const scrollTo = (to) => {
+  setMenuOpen(false)
+  setDrawerOpen(false) // ← ferme About au passage
+  if (to === 'top') {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setActiveSection('top')
+    return
   }
+  const el = document.getElementById(to)
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 70
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
+}
 
   return (
     <>
