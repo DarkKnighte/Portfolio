@@ -19,6 +19,7 @@ export const LANG_COLORS = {
   Rust:        '#dea584',
   Shell:       '#89e051',
   NodeJS:      '#68a063',
+  MongoDB:     '#47A248',
   default:     '#888888',
 }
 
@@ -42,6 +43,7 @@ const DEVICON_MAP = {
   Rust:        'rust',
   'C#':        'csharp',
   Shell:       'bash',
+  MongoDB:     'mongodb',
 }
 
 export const LangIcon = ({ lang, size = 24 }) => {

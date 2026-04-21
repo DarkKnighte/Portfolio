@@ -3,7 +3,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import { LangIcon, getColor } from './Langicons.jsx'
 import './Modal.scss'
 
-export function Modal({ repo, langs, images = [], context, onClose }) {
+export function Modal({ repo, langs, images = [], context, experience, onClose }) {
   const [activeLang, setActiveLang]   = useState(null)
   const [currentImg, setCurrentImg]   = useState(0)
 
@@ -174,6 +174,17 @@ export function Modal({ repo, langs, images = [], context, onClose }) {
               <div className="modal__desc-block">
                 <p className="modal__section-label">Contexte</p>
                 <p className="modal__description">{context}</p>
+              </div>
+            )}
+
+            {/* Expérience personnelle */}
+            {experience && (
+              <div className="modal__desc-block">
+                <p className="modal__section-label">Mon expérience</p>
+                {/*
+                  Ce texte est défini dans PROJECT_EXPERIENCE dans ProjectsCarousel.jsx
+                */}
+                <p className="modal__description">{experience}</p>
               </div>
             )}
 

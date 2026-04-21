@@ -11,6 +11,7 @@ fetchWithCache(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=1
 
 const EXTRA_LANGS = {
   'Kasa': ['React', 'Vue', 'NodeJS'],
+  'Mon-Vieux-Grimoire': ['NodeJS', 'MongoDB', 'Express'],
 }
 
 // Tableau d'images par repo — première image affichée dans le carousel
@@ -30,9 +31,15 @@ const PROJECT_IMAGES = {
 }
 
 const PROJECT_CONTEXT = {
-  'projet-Booki':       'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
-  'Kasa':               'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
-  'Mon-Vieux-Grimoire': 'Projet réalisé dans le cadre de ma formation OpenClassrooms.',
+  'projet-Booki':       'Projet réalisé dans le cadre de ma formation OpenClassrooms. Il s\'agit d\'un site de réservation d\'hébergements, avec un focus sur la création d\'une interface responsive et fidèle aux maquettes fournies.',
+  'Kasa':               'Projet réalisé dans le cadre de ma formation OpenClassrooms. Il s\'agit d\'une application web de location immobilière, développée avec React pour construire une interface utilisateur dynamique et responsive, tout en gérant l\'état de l\'application et les interactions utilisateur.',
+  'Mon-Vieux-Grimoire': 'Projet réalisé dans le cadre de ma formation OpenClassrooms. Il s\'agit d\'une application de partage de livres, avec un focus sur le développement back-end avec Node.js, en créant une API RESTful pour gérer les données de l\'application, tout en assurant la sécurité et la performance du serveur. J\'ai également travaillé avec MongoDB, une base de données NoSQL, pour stocker et gérer les données de manière flexible et efficace.',
+}
+
+const PROJECT_EXPERIENCE = {
+  'projet-Booki':       'Ce projet m\'a permis de mettre en pratique les bases du développement front-end, notamment la structuration HTML et le stylisme CSS pour créer une interface responsive et fidèle aux maquettes fournies.',
+  'Kasa':               'Ce projet m\'a offert l\'opportunité de me plonger dans le développement d\'une application web complète, en utilisant React pour construire une interface utilisateur dynamique et responsive, tout en gérant l\'état de l\'application et les interactions utilisateur.',
+  'Mon-Vieux-Grimoire': 'Ce projet m\'a permis d\'explorer le développement back-end avec Node.js, en créant une API RESTful pour gérer les données de l\'application, tout en assurant la sécurité et la performance du serveur. J\'ai également travaillé avec MongoDB, une base de données NoSQL, pour stocker et gérer les données de manière flexible et efficace.',
 }
 
 export function ProjectsCarousel() {
@@ -80,6 +87,7 @@ export function ProjectsCarousel() {
             langs:   [...apiLangData, ...extraLangs],
             images:  PROJECT_IMAGES[repo.name]  || [],
             context: PROJECT_CONTEXT[repo.name] || null,
+            experience: PROJECT_EXPERIENCE[repo.name] || null,
           }
         })
 
@@ -121,7 +129,7 @@ export function ProjectsCarousel() {
   if (error)   return <div className="projects-carousel projects-carousel--error"><p>Erreur : {error}</p></div>
   if (projects.length === 0) return null
 
-  const { repo, langs, images, context } = projects[current]
+  const { repo, langs, images, context, experience } = projects[current]
   const displayImage = images[0] || null // ← première image uniquement dans le carousel
 
   return (
@@ -188,6 +196,7 @@ export function ProjectsCarousel() {
           langs={selectedProject.langs}
           images={selectedProject.images}
           context={selectedProject.context}
+          experience={selectedProject.experience}
           onClose={() => setSelected(null)}
         />
       )}
