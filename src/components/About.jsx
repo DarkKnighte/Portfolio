@@ -38,7 +38,7 @@ export function About({ open, onOpenChange }) {
         <p>
           J'ai commencer mon parcours dans le code <br/>grâce à la formation du Wagon, qui m'a permis d'acquérir les bases du développement web et de me familiariser avec les technologies <br/>front-end et backend.
           <br/><br/>J'ai ensuite suivi la formation de développeur web d'OpenClassrooms pendant 1 an en alternance dans une entreprise qui fait de la gestion de données pour des hotels, qui m'a permis de consolider mes compétences en développement back-end, notamment avec <br/>PHP et SQL ainsi que de découvrir les bonnes pratiques de développement en entreprise.
-          <br/><br/>J'ai par la suite continuer ma formation OpenClassroom sans alternance afin de pouvoir la finir dans de meilleur de travail possible, et me concentrer sur des projets personnels pour mettre en pratique mes compétences et continuer à apprendre de nouvelles technologies.
+          <br/><br/>J'ai par la suite continuer ma formation OpenClassroom sans alternance afin de pouvoir la finir dans de meilleur condition de travail possible, et me concentrer sur des projets personnels pour mettre en pratique mes compétences et continuer à apprendre de nouvelles technologies.
           <br/><br/>J'ai réalisé plusieurs projets personnels et professionnels, dont certains sont présentés dans la section "Projets" de ce portfolio, qui m'ont permis de mettre en pratique mes compétences et d'acquérir de l'expérience dans le développement web.
         </p>
       </div>
